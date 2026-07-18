@@ -1,0 +1,21 @@
+=== Basic Scan: nmap 127.0.0.1 ===
+Starting Nmap 7.94 at 2026-07-18
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00011s latency).
+Not shown: 996 closed tcp ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+443/tcp  open  https
+3306/tcp open  mysql
+
+=== Service Version Scan: nmap -sV 127.0.0.1 ===
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.9p1 Ubuntu
+80/tcp   open  http    Apache httpd 2.4.52
+443/tcp  open  https   Apache httpd 2.4.52
+3306/tcp open  mysql   MySQL 8.0.36
+
+=== OS Detection Scan: sudo nmap -O 127.0.0.1 ===
+Running: Linux 5.X
+OS details: Linux 5.4 - 5.15
