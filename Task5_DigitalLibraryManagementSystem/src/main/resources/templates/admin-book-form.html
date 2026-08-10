@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Form - Digital Library Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav>
+    <div><a th:href="@{/}"><strong>📚 Digital Library — Admin</strong></a></div>
+    <div><a th:href="@{/admin/dashboard}">Back to Dashboard</a> &nbsp; <a th:href="@{/logout}">Logout</a></div>
+</nav>
+<div class="container" style="max-width:500px;">
+    <div class="card">
+        <h2 th:text="${book.id == null} ? 'Add New Book' : 'Edit Book'">Book Form</h2>
+        <form th:action="${book.id == null} ? @{/admin/books/new} : @{'/admin/books/' + ${book.id} + '/edit'}" method="post">
+            <label>Title</label>
+            <input type="text" name="title" th:value="${book.title}" required>
+            <label>Author</label>
+            <input type="text" name="author" th:value="${book.author}" required>
+            <label>ISBN</label>
+            <input type="text" name="isbn" th:value="${book.isbn}" required>
+            <label>Category</label>
+            <input type="text" name="category" th:value="${book.category}" required>
+            <label>Quantity (total copies)</label>
+            <input type="number" name="quantity" min="0" th:value="${book.quantity}" required>
+            <button type="submit" th:text="${book.id == null} ? 'Add Book' : 'Save Changes'">Save</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

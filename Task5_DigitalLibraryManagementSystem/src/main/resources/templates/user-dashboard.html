@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Dashboard - Digital Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav>
+    <div><a th:href="@{/}"><strong>📚 Digital Library</strong></a> <a th:href="@{/books}">Browse Catalogue</a> <a th:href="@{/contact}">Contact</a></div>
+    <div><span th:text="'Hi, ' + ${currentUser.fullName}"></span> &nbsp; <a th:href="@{/logout}">Logout</a></div>
+</nav>
+<div class="container">
+
+    <div class="card">
+        <h2>My Borrowed Books</h2>
+        <table>
+            <tr><th>Title</th><th>Issue Date</th><th>Due Date</th><th>Status</th><th>Fine</th><th></th></tr>
+            <tr th:each="loan : ${loans}">
+                <td th:text="${loan.book.title}">Title</td>
+                <td th:text="${loan.issueDate}">Issue Date</td>
+                <td th:text="${loan.dueDate}">Due Date</td>
+                <td>
+                    <span th:if="${loan.returned}" class="badge badge-success">Returned</span>
+                    <span th:if="${!loan.returned and loan.overdue}" class="badge badge-danger">Overdue</span>
+                    <span th:if="${!loan.returned and !loan.overdue}" class="badge">Issued</span>
+                </td>
+                <td>
+                    <span th:if="${loan.fineAmount > 0}"
+                          th:text="'₹' + ${loan.fineAmount} + (${loan.finePaid} ? ' (paid)' : ' (unpaid)')"></span>
+                    <span th:if="${loan.fineAmount == 0}">—</span>
+                </td>
+                <td>
+                    <a th:if="${!loan.returned}" th:href="@{'/user/return/' + ${loan.id}}" class="btn btn-small">Return</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>My Reservations (Advance Bookings)</h2>
+        <table>
+            <tr><th>Title</th><th>Reserved On</th><th>Status</th></tr>
+            <tr th:each="res : ${reservations}">
+                <td th:text="${res.book.title}">Title</td>
+                <td th:text="${res.reservedDate}">Date</td>
+                <td th:text="${res.status}">Status</td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(reservations)}">No active reservations.</p>
+    </div>
+
+    <div class="card">
+        <h2>Catalogue</h2>
+        <table>
+            <tr><th>Title</th><th>Author</th><th>Category</th><th>Available</th><th></th></tr>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.title}">Title</td>
+                <td th:text="${book.author}">Author</td>
+                <td th:text="${book.category}">Category</td>
+                <td>
+                    <span th:if="${book.available}" class="badge badge-success" th:text="${book.availableQuantity} + '/' + ${book.quantity}"></span>
+                    <span th:unless="${book.available}" class="badge badge-danger">0 available</span>
+                </td>
+                <td>
+                    <a th:if="${book.available}" th:href="@{'/user/issue/' + ${book.id}}" class="btn btn-small">Issue</a>
+                    <a th:unless="${book.available}" th:href="@{'/user/reserve/' + ${book.id}}" class="btn btn-small">Reserve</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

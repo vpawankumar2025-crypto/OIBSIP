@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - Digital Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav>
+    <div><a th:href="@{/}"><strong>📚 Digital Library</strong></a> <a th:href="@{/books}">Browse Catalogue</a> <a th:href="@{/contact}">Contact</a></div>
+    <div>
+        <span th:if="${currentUser == null}">
+            <a th:href="@{/login}">Login</a> <a th:href="@{/register}">Register</a>
+        </span>
+        <span th:if="${currentUser != null}">
+            <a th:href="@{/logout}">Logout</a>
+        </span>
+    </div>
+</nav>
+<div class="container" style="max-width:500px;">
+    <div class="card">
+        <h2>Contact / Query</h2>
+        <p class="success" th:if="${success}" th:text="${success}"></p>
+        <form th:action="@{/contact}" method="post">
+            <label>Your Name</label>
+            <input type="text" name="name" required>
+            <label>Email</label>
+            <input type="email" name="email" required>
+            <label>Message</label>
+            <textarea name="message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

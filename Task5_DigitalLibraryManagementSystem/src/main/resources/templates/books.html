@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Browse Catalogue - Digital Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav>
+    <div><a th:href="@{/}"><strong>📚 Digital Library</strong></a> <a th:href="@{/books}">Browse Catalogue</a> <a th:href="@{/contact}">Contact</a></div>
+    <div>
+        <span th:if="${currentUser == null}">
+            <a th:href="@{/login}">Login</a> <a th:href="@{/register}">Register</a>
+        </span>
+        <span th:if="${currentUser != null}">
+            <a th:if="${currentUser.admin}" th:href="@{/admin/dashboard}">Admin Dashboard</a>
+            <a th:unless="${currentUser.admin}" th:href="@{/user/dashboard}">My Dashboard</a>
+            <a th:href="@{/logout}">Logout</a>
+        </span>
+    </div>
+</nav>
+<div class="container">
+    <div class="card">
+        <h2>Browse the Catalogue</h2>
+        <form th:action="@{/books}" method="get">
+            <input type="text" name="q" placeholder="Search by title or author..." th:value="${query}">
+            <button type="submit">Search</button>
+        </form>
+        <table>
+            <tr><th>Title</th><th>Author</th><th>ISBN</th><th>Category</th><th>Available</th><th></th></tr>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.title}">Title</td>
+                <td th:text="${book.author}">Author</td>
+                <td th:text="${book.isbn}">ISBN</td>
+                <td th:text="${book.category}">Category</td>
+                <td>
+                    <span th:if="${book.available}" class="badge badge-success" th:text="${book.availableQuantity} + '/' + ${book.quantity}">Available</span>
+                    <span th:unless="${book.available}" class="badge badge-danger">0 available</span>
+                </td>
+                <td>
+                    <a th:if="${currentUser != null and !currentUser.admin and book.available}"
+                       th:href="@{'/user/issue/' + ${book.id}}" class="btn btn-small">Issue</a>
+                    <a th:if="${currentUser != null and !currentUser.admin and !book.available}"
+                       th:href="@{'/user/reserve/' + ${book.id}}" class="btn btn-small">Reserve</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

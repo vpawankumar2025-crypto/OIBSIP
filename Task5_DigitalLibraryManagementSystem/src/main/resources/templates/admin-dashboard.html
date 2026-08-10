@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Digital Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav>
+    <div><a th:href="@{/}"><strong>📚 Digital Library — Admin</strong></a></div>
+    <div><a th:href="@{/logout}">Logout</a></div>
+</nav>
+<div class="container">
+
+    <div class="card">
+        <h2>Books Catalogue</h2>
+        <a th:href="@{/admin/books/new}" class="btn">+ Add New Book</a>
+        <table>
+            <tr><th>Title</th><th>Author</th><th>ISBN</th><th>Category</th><th>Qty</th><th>Available</th><th></th></tr>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.title}">Title</td>
+                <td th:text="${book.author}">Author</td>
+                <td th:text="${book.isbn}">ISBN</td>
+                <td th:text="${book.category}">Category</td>
+                <td th:text="${book.quantity}">Qty</td>
+                <td th:text="${book.availableQuantity}">Avail</td>
+                <td>
+                    <a th:href="@{'/admin/books/' + ${book.id} + '/edit'}" class="btn btn-small">Edit</a>
+                    <a th:href="@{'/admin/books/' + ${book.id} + '/delete'}" class="btn btn-small btn-danger"
+                       onclick="return confirm('Delete this book?');">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Issued Books &amp; Due Dates</h2>
+        <table>
+            <tr><th>Title</th><th>Member</th><th>Issue Date</th><th>Due Date</th><th>Status</th></tr>
+            <tr th:each="loan : ${issuedLoans}">
+                <td th:text="${loan.book.title}">Title</td>
+                <td th:text="${loan.user.fullName}">Member</td>
+                <td th:text="${loan.issueDate}">Issue</td>
+                <td th:text="${loan.dueDate}">Due</td>
+                <td>
+                    <span th:if="${loan.overdue}" class="badge badge-danger">Overdue</span>
+                    <span th:unless="${loan.overdue}" class="badge">On time</span>
+                </td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(issuedLoans)}">No books currently issued.</p>
+    </div>
+
+    <div class="card">
+        <h2>Unpaid Fines</h2>
+        <table>
+            <tr><th>Title</th><th>Member</th><th>Amount</th><th></th></tr>
+            <tr th:each="loan : ${unpaidFines}">
+                <td th:text="${loan.book.title}">Title</td>
+                <td th:text="${loan.user.fullName}">Member</td>
+                <td th:text="'₹' + ${loan.fineAmount}">Amount</td>
+                <td><a th:href="@{'/admin/fines/' + ${loan.id} + '/pay'}" class="btn btn-small">Mark Paid</a></td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(unpaidFines)}">No unpaid fines.</p>
+    </div>
+
+    <div class="card">
+        <h2>Active Reservations (Advance Bookings)</h2>
+        <table>
+            <tr><th>Title</th><th>Member</th><th>Reserved On</th></tr>
+            <tr th:each="res : ${reservations}">
+                <td th:text="${res.book.title}">Title</td>
+                <td th:text="${res.user.fullName}">Member</td>
+                <td th:text="${res.reservedDate}">Date</td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(reservations)}">No active reservations.</p>
+    </div>
+
+    <div class="card">
+        <h2>Registered Members</h2>
+        <table>
+            <tr><th>Name</th><th>Username</th><th>Email</th></tr>
+            <tr th:each="m : ${members}">
+                <td th:text="${m.fullName}">Name</td>
+                <td th:text="${m.username}">Username</td>
+                <td th:text="${m.email}">Email</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Contact / Query Messages</h2>
+        <table>
+            <tr><th>Name</th><th>Email</th><th>Message</th><th>Status</th><th></th></tr>
+            <tr th:each="msg : ${contactMessages}">
+                <td th:text="${msg.name}">Name</td>
+                <td th:text="${msg.email}">Email</td>
+                <td th:text="${msg.message}">Message</td>
+                <td>
+                    <span th:if="${msg.resolved}" class="badge badge-success">Resolved</span>
+                    <span th:unless="${msg.resolved}" class="badge badge-warning">Open</span>
+                </td>
+                <td>
+                    <a th:unless="${msg.resolved}" th:href="@{'/admin/messages/' + ${msg.id} + '/resolve'}" class="btn btn-small">Mark Resolved</a>
+                </td>
+            </tr>
+        </table>
+        <p th:if="${#lists.isEmpty(contactMessages)}">No messages yet.</p>
+    </div>
+
+</div>
+</body>
+</html>
