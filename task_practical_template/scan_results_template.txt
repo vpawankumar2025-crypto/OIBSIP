@@ -1,0 +1,11 @@
+# Paste your real `nmap [target IP]`, `nmap -sV [target IP]`, and `nmap -O [target IP]`
+# terminal output below, clearly labeled, e.g.:
+
+=== nmap [target IP] ===
+[paste output]
+
+=== nmap -sV [target IP] ===
+[paste output]
+
+=== nmap -O [target IP] ===
+[paste output]

@@ -1,26 +1,37 @@
-# OIBSIP — Oasis Infobyte Summer Internship Program
+# Oasis Infobyte Cyber Security Externship — Task Submissions
 
-**Intern:** Pawan Kumar V
 **Track:** Cyber Security
-**Program:** Oasis Infobyte Summer Internship Program (OIBSIP)
+**Completion Rule:** At least 4 of 10 tasks
 
-This repository contains my task submissions for the Cyber Security track of the Oasis Infobyte internship. The track requires completing at least **4 of 10** available tasks, mixing practical and research-based work.
+## Tasks Completed
 
-## Completed Tasks
-
-| # | Task | Type | Folder |
+| # | Task | Type | Status |
 |---|---|---|---|
-| 1 | Basic Network Scanning with Nmap | Practical | [`CyberSecurity-Task1-BasicNetworkScanning/`](./CyberSecurity-Task1-BasicNetworkScanning) |
-| 4 | Research Report: Common Network Security Threats | Research | [`CyberSecurity-Task4-NetworkThreatsReport/`](./CyberSecurity-Task4-NetworkThreatsReport) |
-| 5 | Research Report: Social Engineering Attacks | Research | [`CyberSecurity-Task5-SocialEngineeringAttacks/`](./CyberSecurity-Task5-SocialEngineeringAttacks) |
-| 6 | Research Report: The Importance of Patch Management | Research | [`CyberSecurity-Task6-PatchManagement/`](./CyberSecurity-Task6-PatchManagement) |
+| 4 | Research Report: Common Network Security Threats | Research | ✅ Complete — see `task4-network-threats/` |
+| 5 | Research Report: Social Engineering Attacks | Research | ✅ Complete — see `task5-social-engineering/` |
+| 6 | Research Report: The Importance of Patch Management | Research | ✅ Complete — see `task6-patch-management/` |
+| ? | [Pick one: Task 1, 2, or 3] | Practical | ⬜ In progress — see `task_practical_template/` |
 
-Each folder contains its own `README.md`, source files/reports, and (for practical tasks) screenshots and supporting evidence.
+## Repo Structure
 
-## About Oasis Infobyte
+```
+oasis-cybersecurity-tasks/
+├── README.md                          (this file)
+├── task4-network-threats/
+│   └── network_security_threats_report.md
+├── task5-social-engineering/
+│   └── social_engineering_report.md
+├── task6-patch-management/
+│   └── patch_management_report.md
+└── task_practical_template/
+    ├── README_template.md
+    ├── scan_results_template.txt
+    └── screenshots/                   (add your own screenshots here)
+```
 
-Oasis Infobyte runs remote internship programs across Web Development, Android, Java, Graphics Design, Data Science, Python, Data Analytics, and Cyber Security. More info: [oasisinfobyte.com](https://www.oasisinfobyte.com)
+## Notes
 
-## Contact
-- Email: vpawankumar2025@gmail.com
-- LinkedIn: [linkedin.com/in/pawankumarv04](https://www.linkedin.com/in/pawankumarv04)
+- Tasks 4, 5, and 6 are research/report tasks and required no demo video per the task brief.
+- The 4th task should be a practical task (recommend Task 1 – Nmap scanning, or Task 2 – UFW firewall, as the fastest to complete) and requires a GitHub repo with code/screenshots **and a short demo video**.
+- Replace `[Your Name]` placeholders in each report with your actual name before submitting.
+- Push this folder as your GitHub repo, record your demo video for the practical task, and add the video link (e.g., YouTube unlisted or Google Drive) to that task's README.
